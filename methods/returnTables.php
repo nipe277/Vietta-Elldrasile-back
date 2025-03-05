@@ -1,14 +1,17 @@
 <?php
-require_once("DbConnection/connectionDb.php");
-
-$sql = "SELECT table_name
+function returnTableNames(string $database, PDO $connection):Array {
+    $sql = "SELECT table_name
     FROM information_schema.tables
     WHERE table_schema = '$database'";
-$result = $connection->query($sql);
+    $result = $connection->query($sql);
 
-$tableNames = [];
+    $tableNames = [];
 
-while($row = $result->fetch()){
-    array_push($tableNames, $row);
+    while($row = $result->fetch()){
+        array_push($tableNames, $row);
+    }
+
+    return $tableNames;
 }
+
 

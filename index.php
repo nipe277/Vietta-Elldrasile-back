@@ -1,14 +1,16 @@
 <?php
-header("Location: adminpanel.php");
-// require_once("settings.php");
-// ini_set('display_errors', 'on');
-// $connection = new mysqli($host, $user, $pass, $database)
-//     or die(mysqli_error($connection));
+header('Content-type: json/application');
+header('Access-Control-Allow-Origin: http://localhost:5174');
+require_once("DbConnection/connectionDb.php");
+$sql = "SELECT * FROM plot";
+$result = $connection->query($sql);
 
-// $result = mysqli_query($connection, "SELECT * FROM `directory`")
-//     or die(mysqli_error($connection));
-// // $result = $connection -> query("SELECT * FROM `directory`");
+$posts = [];
 
-// for($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
-// var_dump($data);
-// print getmyuid();
+while($row = $result->fetch()){
+    $posts[] = $row;
+}
+echo json_encode($posts, JSON_UNESCAPED_UNICODE);
+
+
+// header('Content-type: json/application');
