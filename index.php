@@ -1,16 +1,20 @@
 <?php
 header('Content-type: json/application');
-header('Access-Control-Allow-Origin: http://localhost:5174');
+// header('Access-Control-Allow-Origin: https://vanyafront/');
 require_once("DbConnection/connectionDb.php");
-$sql = "SELECT * FROM plot";
-$result = $connection->query($sql);
+require_once("getData.php");
 
-$posts = [];
-
-while($row = $result->fetch()){
-    $posts[] = $row;
+if(isset($_GET['q'])){
+    $type = $_GET['q'];
 }
-echo json_encode($posts, JSON_UNESCAPED_UNICODE);
+else{
+    print "No type specified";
+}
+
+getData($type, $connection);
+
+
+
 
 
 // header('Content-type: json/application');
